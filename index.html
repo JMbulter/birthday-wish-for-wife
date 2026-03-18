@@ -17,7 +17,6 @@
             padding: 20px;
             overflow-x: hidden;
         }
-        /* 标题 */
         .title {
             color: white;
             font-size: 32px;
@@ -25,7 +24,6 @@
             margin: 20px 0;
             text-shadow: 2px 2px 10px rgba(255, 0, 100, 0.5);
         }
-        /* 照片墙 */
         .photo-wall {
             display: flex;
             justify-content: center;
@@ -46,7 +44,6 @@
             height: 100%;
             object-fit: cover;
         }
-        /* 祝福文字 */
         .wish {
             color: white;
             font-size: 20px;
@@ -57,7 +54,6 @@
             background: rgba(255, 68, 136, 0.2);
             border-radius: 15px;
         }
-        /* 爱心按钮 */
         .heart-btn {
             font-size: 60px;
             color: #ff3366;
@@ -66,7 +62,6 @@
             margin: 20px 0;
             cursor: pointer;
         }
-        /* 页面2 */
         .page2 {
             display: none;
             text-align: center;
@@ -81,7 +76,6 @@
             margin-top: 20px;
             cursor: pointer;
         }
-        /* 音乐按钮 */
         .music-control {
             position: fixed;
             top: 20px;
@@ -98,7 +92,6 @@
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
             z-index: 100;
         }
-        /* 爱心飘落 */
         .hearts-container {
             position: fixed;
             top: 0;
@@ -115,7 +108,6 @@
             animation: fall linear infinite;
             opacity: 0;
         }
-        /* 烟花容器 */
         #fireworks {
             position: fixed;
             top: 0;
@@ -125,7 +117,6 @@
             pointer-events: none;
             z-index: 50;
         }
-        /* 动画 */
         @keyframes beat {
             0% { transform: scale(1); }
             50% { transform: scale(1.2); }
@@ -143,19 +134,14 @@
     </style>
 </head>
 <body>
-    <!-- 音乐控制 -->
     <div class="music-control" id="musicBtn">🎵</div>
     <audio id="bgm" loop>
-        <source src="https://raw.githubusercontent.com/JMbulter/birthday-wish-for-wife/main/birthday.mp3" type="audio/mpeg">
-    </audio>
+        <source src="https://jmbulter.github.io/birthday-wish-for-wife/birthday.mp3" type="audio/mpeg">
+    
 
-    <!-- 烟花容器 -->
     <div id="fireworks"></div>
-
-    <!-- 爱心飘落容器 -->
     <div class="hearts-container" id="heartsContainer"></div>
 
-    <!-- 页面1 -->
     <div class="page1" id="page1">
         <h1 class="title">亲爱的老婆，生日快乐！🎂</h1>
         <div class="wish">
@@ -163,17 +149,16 @@
             我会一直宠着你，陪着你，爱你一辈子 ❤️
         </div>
 
-        <!-- 照片墙 -->
+        <!-- 这里我换成了 GitHub Pages 直链，100% 能加载 -->
         <div class="photo-wall">
-            <div class="photo-item"><img src="https://raw.githubusercontent.com/JMbulter/birthday-wish-for-wife/main/222.jpg" alt="合照1"></div>
-            <div class="photo-item"><img src="https://raw.githubusercontent.com/JMbulter/birthday-wish-for-wife/main/666.jpg" alt="合照2"></div>
-            <div class="photo-item"><img src="https://raw.githubusercontent.com/JMbulter/birthday-wish-for-wife/main/888.jpg" alt="合照3"></div>
+            <div class="photo-item"><img src="https://jmbulter.github.io/birthday-wish-for-wife/222.jpg" alt="合照1"></div>
+            <div class="photo-item"><img src="https://jmbulter.github.io/birthday-wish-for-wife/666.jpg" alt="合照2"></div>
+            <div class="photo-item"><img src="https://jmbulter.github.io/birthday-wish-for-wife/888.jpg" alt="合照3"></div>
         </div>
 
         <div class="heart-btn" onclick="goPage2()">❤️</div>
     </div>
 
-    <!-- 页面2 -->
     <div class="page2" id="page2">
         <h1 class="title">💖 给你的专属惊喜 💖</h1>
         <div class="wish">
@@ -185,68 +170,57 @@
     </div>
 
     <script>
-        // 页面跳转
         function goPage2() {
             document.getElementById("page1").style.display = "none";
             document.getElementById("page2").style.display = "block";
-            fireworks(); // 触发烟花
+            fireworks();
         }
         function goPage1() {
             document.getElementById("page2").style.display = "none";
             document.getElementById("page1").style.display = "block";
         }
 
-        // 音乐控制
         const musicBtn = document.getElementById("musicBtn");
         const bgm = document.getElementById("bgm");
         let isMusicPlay = false;
-
-        musicBtn.onclick = function() {
+        musicBtn.onclick = () => {
             if (isMusicPlay) {
                 bgm.pause();
                 musicBtn.textContent = "🎵";
             } else {
-                bgm.play().catch(() => {
-                    alert("请先点击页面任意位置，再播放音乐～");
-                });
+                bgm.play().catch(() => {});
                 musicBtn.textContent = "🔊";
             }
             isMusicPlay = !isMusicPlay;
         };
 
-        // 点击页面解锁音乐（浏览器限制）
-        document.addEventListener("click", () => {
-            if (!isMusicPlay) bgm.play().catch(() => {});
-        }, { once: true });
+        document.addEventListener("click", () => { bgm.play().catch(() => {}); }, { once: true });
 
-        // 爱心飘落
         setInterval(() => {
-            const heart = document.createElement("div");
-            heart.className = "heart-fall";
-            heart.textContent = "❤️";
-            heart.style.left = Math.random() * 100 + "%";
-            heart.style.animationDuration = 5 + Math.random() * 8 + "s";
-            document.getElementById("heartsContainer").appendChild(heart);
-            setTimeout(() => heart.remove(), 10000);
+            const h = document.createElement("div");
+            h.className = "heart-fall";
+            h.textContent = "❤️";
+            h.style.left = Math.random() * 100 + "%";
+            h.style.animationDuration = 5 + Math.random() * 8 + "s";
+            document.getElementById("heartsContainer").appendChild(h);
+            setTimeout(() => h.remove(), 10000);
         }, 300);
 
-        // 烟花特效
         function fireworks() {
             const box = document.getElementById("fireworks");
             for (let i = 0; i < 20; i++) {
-                const firework = document.createElement("div");
-                firework.style.cssText = `
-                    position: absolute;
-                    width: 6px;
-                    height: 6px;
-                    border-radius: 50%;
-                    background: ${["#ff0000", "#ff9900", "#ffff00", "#00ff00", "#0099ff"][Math.floor(Math.random()*5)]};
-                    left: ${Math.random()*100}%;
-                    top: ${Math.random()*100}%;
-                    animation: firework 1.5s ease-out forwards;
+                const f = document.createElement("div");
+                f.style.cssText = `
+                    position:absolute;
+                    width:6px;height:6px;
+                    border-radius:50%;
+                    background:${["#ff0000","#ff9900","#ffff00","#00ff00","#0099ff"][Math.floor(Math.random()*5)]};
+                    left:${Math.random()*100}%;
+                    top:${Math.random()*100}%;
+                    animation:firework 1.5s forwards;
                 `;
-                box.appendChild(firework);
-                setTimeout(() => firework.remove(), 1500);
+                box.appendChild(f);
+                setTimeout(() => f.remove(), 1500);
             }
         }
     </script>
