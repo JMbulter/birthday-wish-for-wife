@@ -149,7 +149,6 @@
             我会一直宠着你，陪着你，爱你一辈子 ❤️
         </div>
 
-        <!-- 这里我换成了 GitHub Pages 直链，100% 能加载 -->
         <div class="photo-wall">
             <div class="photo-item"><img src="https://jmbulter.github.io/birthday-wish-for-wife/222.jpg" alt="合照1"></div>
             <div class="photo-item"><img src="https://jmbulter.github.io/birthday-wish-for-wife/666.jpg" alt="合照2"></div>
@@ -183,19 +182,22 @@
         const musicBtn = document.getElementById("musicBtn");
         const bgm = document.getElementById("bgm");
         let isMusicPlay = false;
+
+        // 音乐控制：点击按钮才播放，避免自动播放
         musicBtn.onclick = () => {
             if (isMusicPlay) {
                 bgm.pause();
                 musicBtn.textContent = "🎵";
             } else {
-                bgm.play().catch(() => {});
+                bgm.play().catch(() => {
+                    alert("请先点击页面任意位置，再播放音乐～");
+                });
                 musicBtn.textContent = "🔊";
             }
             isMusicPlay = !isMusicPlay;
         };
 
-        document.addEventListener("click", () => { bgm.play().catch(() => {}); }, { once: true });
-
+        // 爱心飘落
         setInterval(() => {
             const h = document.createElement("div");
             h.className = "heart-fall";
@@ -206,6 +208,7 @@
             setTimeout(() => h.remove(), 10000);
         }, 300);
 
+        // 烟花特效
         function fireworks() {
             const box = document.getElementById("fireworks");
             for (let i = 0; i < 20; i++) {
