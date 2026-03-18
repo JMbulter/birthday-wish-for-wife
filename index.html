@@ -353,41 +353,50 @@
             }
         }
         
-        /* 浪漫留言板 */
-        .message-board {
-            background: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 20px;
+        /* 浪漫扭蛋机 */
+        .gacha-machine {
+            background: rgba(255, 215, 0, 0.2);
+            backdrop-filter: blur(5px);
+            border-radius: 30px;
+            padding: 25px;
             margin: 30px 0;
-            border: 2px solid white;
-        }
-        
-        .message-input {
-            width: 100%;
-            padding: 12px;
-            border: none;
-            border-radius: 25px;
-            margin: 10px 0;
-            font-size: 16px;
-            outline: none;
-        }
-        
-        .send-btn {
-            background: #ff3366;
-            color: white;
-            border: none;
-            padding: 10px 25px;
-            border-radius: 25px;
-            font-size: 16px;
+            border: 3px solid gold;
             cursor: pointer;
             transition: all 0.3s;
-            border: 2px solid white;
+            text-align: center;
         }
         
-        .send-btn:hover {
-            transform: scale(1.05);
-            background: #ff1a4f;
+        .gacha-machine:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.5);
+        }
+        
+        .gacha-top {
+            font-size: 24px;
+            color: white;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+        
+        .gacha-ball {
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle at 30% 30%, #ff99cc, #ff3366);
+            border-radius: 50%;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 50px;
+            animation: spin 3s infinite linear;
+            border: 4px solid white;
+            box-shadow: 0 5px 20px rgba(255, 51, 102, 0.5);
+        }
+        
+        .gacha-text {
+            color: white;
+            font-size: 16px;
+            margin-bottom: 10px;
         }
         
         /* 爱情许愿池 */
@@ -567,7 +576,7 @@
 
     <!-- 页面1 -->
     <div class="page1" id="page1">
-        <!-- 在一起计数器（新增） -->
+        <!-- 在一起计数器 -->
         <div style="text-align: center;">
             <div class="love-counter" id="loveCounter">
                 💕 在一起 520 天 💕
@@ -576,7 +585,7 @@
         
         <h1 class="title">亲爱的老婆，生日快乐！🎂</h1>
         
-        <!-- 3D翻转相册（新增） -->
+        <!-- 3D翻转相册 -->
         <div class="flip-card">
             <div class="flip-card-inner">
                 <div class="flip-card-front">
@@ -588,7 +597,7 @@
             </div>
         </div>
         
-        <!-- 打字机效果（新增） -->
+        <!-- 打字机效果 -->
         <div style="text-align: center;">
             <div class="typing-text" id="typingText">
                 甄鑫鑫！
@@ -606,7 +615,7 @@
             <div class="photo-item"><img src="888.jpg" alt="合照3" loading="lazy"></div>
         </div>
         
-        <!-- 爱情存钱罐（新增） -->
+        <!-- 爱情存钱罐 -->
         <div class="piggy-bank" id="piggyBank">
             <span>💰 爱情存钱罐</span>
             <div class="coin" onclick="addLove()">❤️</div>
@@ -615,7 +624,7 @@
             <span id="loveAmount">0</span> 颗爱心
         </div>
         
-        <!-- 浪漫天气预报（新增） -->
+        <!-- 浪漫天气预报 -->
         <div class="weather-romance" id="weatherRomance">
             🌡️ 今日爱情温度：100°C <br>
             ☁️ 天气：持续甜蜜 <br>
@@ -629,7 +638,7 @@
     <div class="page2" id="page2">
         <h1 class="title">💖 给你的专属惊喜 💖</h1>
         
-        <!-- 浪漫时间线（新增） -->
+        <!-- 浪漫时间线 -->
         <div class="timeline" id="timeline">
             <div class="timeline-item">
                 <strong>第一次相遇</strong><br>
@@ -656,15 +665,17 @@
             💝 蛋糕我先吃
         </div>
         
-        <!-- 浪漫留言板（新增） -->
-        <div class="message-board">
-            <h3 style="color: white; margin-bottom: 10px;">💌 给老婆的悄悄话</h3>
-            <input type="text" class="message-input" id="messageInput" placeholder="写下想对老婆说的话...">
-            <button class="send-btn" onclick="sendMessage()">发送爱心 💖</button>
-            <div id="messageDisplay" style="color: white; margin-top: 15px;"></div>
+        <!-- 浪漫扭蛋机（替换了原来的悄悄话） -->
+        <div class="gacha-machine" onclick="drawGacha()">
+            <div class="gacha-top">🎰 浪漫扭蛋机</div>
+            <div class="gacha-body">
+                <div class="gacha-ball" id="gachaBall">🎁</div>
+                <div class="gacha-text">点击扭蛋，抽取今日浪漫</div>
+            </div>
+            <div id="gachaResult" style="color: white; margin-top: 15px; font-size: 16px; min-height: 30px;"></div>
         </div>
         
-        <!-- 爱情许愿池（新增） -->
+        <!-- 爱情许愿池 -->
         <div style="margin: 20px 0;">
             <button class="wish-btn" onclick="makeWish()">⭐ 许个愿吧 ⭐</button>
             <div id="wishResult" style="color: white; margin-top: 10px;"></div>
@@ -719,7 +730,7 @@
                 loadingHint.textContent = "✨ 点击大爱心，有超级惊喜 ✨";
             };
             
-            // 新增：爱心存钱罐功能
+            // 爱心存钱罐功能
             window.addLove = function() {
                 loveCount++;
                 document.getElementById('loveAmount').textContent = loveCount;
@@ -737,22 +748,53 @@
                 }
             };
             
-            // 新增：发送悄悄话
-            window.sendMessage = function() {
-                const msg = document.getElementById('messageInput').value;
-                if (msg.trim()) {
-                    document.getElementById('messageDisplay').innerHTML = 
-                        `💌 老婆说："${msg}"<br>💕 收到啦，永远爱你！`;
-                    document.getElementById('messageInput').value = '';
+            // 浪漫扭蛋机（替换了原来的sendMessage）
+            window.drawGacha = function() {
+                const rewards = [
+                    "🎉 恭喜获得：拥抱一个！",
+                    "🎉 恭喜获得：亲亲一个！",
+                    "🎉 恭喜获得：陪你逛街一整天！",
+                    "🎉 恭喜获得：清空购物车最便宜一个！",
+                    "🎉 恭喜获得：爱心晚餐一份！",
+                    "🎉 恭喜获得：捏肩捶背半小时！",
+                    "🎉 恭喜获得：浪漫电影之夜！",
+                    "🎉 恭喜获得：说一百遍我爱你！",
+                    "🎉 恭喜获得：周末睡到自然醒！",
+                    "🎉 恭喜获得：想去哪玩就去哪！",
+                    "🎉 恭喜获得：奶茶一杯！",
+                    "🎉 恭喜获得：老公做的早餐！"
+                ];
+                
+                // 随机抽取
+                const randomReward = rewards[Math.floor(Math.random() * rewards.length)];
+                
+                // 扭蛋动画
+                const ball = document.getElementById('gachaBall');
+                ball.innerHTML = '🎊';
+                ball.style.animation = 'none';
+                ball.offsetHeight;
+                ball.style.animation = 'spin 0.5s infinite linear';
+                
+                // 显示结果
+                setTimeout(() => {
+                    ball.innerHTML = '🎁';
+                    ball.style.animation = 'spin 3s infinite linear';
+                    
+                    // 显示结果
+                    const resultDiv = document.getElementById('gachaResult');
+                    resultDiv.innerHTML = randomReward;
+                    
+                    // 触发烟花
+                    fireworks();
                     
                     // 触发爱心雨
                     for (let i = 0; i < 5; i++) {
                         setTimeout(createSingleHeart, i * 200);
                     }
-                }
+                }, 500);
             };
             
-            // 新增：许愿功能
+            // 许愿功能
             window.makeWish = function() {
                 const wishes = [
                     "开劳斯莱斯！",
@@ -899,7 +941,6 @@
             function updateLoveCounter() {
                 const counter = document.getElementById('loveCounter');
                 if (counter) {
-                    // 这里可以修改成你们实际在一起的天数
                     const days = 111; // 修改这个数字
                     counter.innerHTML = `💕 在一起 ${days} 天 💕`;
                 }
