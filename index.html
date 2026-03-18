@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>老婆生日快乐 ❤️</title>
     <style>
         * {
@@ -13,60 +13,33 @@
         body {
             background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 99%, #fad0c4 100%);
             min-height: 100vh;
-            font-family: "微软雅黑", "苹方", sans-serif;
+            font-family: "微软雅黑", sans-serif;
             padding: 20px;
             overflow-x: hidden;
-            position: relative;
         }
-        /* 标题样式 */
+        /* 标题 */
         .title {
             color: white;
-            font-size: clamp(28px, 5vw, 40px);
+            font-size: 32px;
             text-align: center;
-            margin: 30px 0;
+            margin: 20px 0;
             text-shadow: 2px 2px 10px rgba(255, 0, 100, 0.5);
-            animation: fadeIn 2s ease;
-            position: relative;
-            z-index: 10;
-        }
-        /* 动漫小人样式 */
-        .anime-character {
-            width: 80px;
-            height: 100px;
-            position: relative;
-            margin: 0 auto 20px;
-            animation: moveX 8s linear infinite alternate;
-            z-index: 10;
-        }
-        .anime-character img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            animation: bounce 2s ease infinite;
         }
         /* 照片墙 */
         .photo-wall {
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
-            gap: 20px;
-            margin: 30px 0;
-            padding: 0 10px;
-            position: relative;
-            z-index: 10;
+            gap: 15px;
+            margin: 20px 0;
         }
         .photo-item {
-            width: clamp(150px, 30vw, 200px);
-            height: clamp(150px, 30vw, 200px);
+            width: 120px;
+            height: 120px;
             border-radius: 10px;
             overflow: hidden;
-            border: 5px solid white;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-            transition: transform 0.3s ease;
-            cursor: pointer;
-        }
-        .photo-item:hover {
-            transform: scale(1.05);
+            border: 3px solid white;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
         }
         .photo-item img {
             width: 100%;
@@ -76,58 +49,45 @@
         /* 祝福文字 */
         .wish {
             color: white;
-            font-size: clamp(20px, 4vw, 28px);
+            font-size: 20px;
             text-align: center;
             line-height: 1.8;
-            margin: 40px 0;
-            padding: 20px;
+            margin: 20px 0;
+            padding: 15px;
             background: rgba(255, 68, 136, 0.2);
-            border-radius: 20px;
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
-            position: relative;
-            z-index: 10;
-            backdrop-filter: blur(5px);
+            border-radius: 15px;
         }
         /* 爱心按钮 */
         .heart-btn {
-            font-size: clamp(60px, 10vw, 80px);
+            font-size: 60px;
             color: #ff3366;
             text-align: center;
             animation: beat 1.2s infinite;
             margin: 20px 0;
             cursor: pointer;
-            position: relative;
-            z-index: 10;
         }
-        /* 页面2样式 */
+        /* 页面2 */
         .page2 {
             display: none;
             text-align: center;
-            padding: 40px 20px;
         }
         .back-btn {
-            padding: 12px 30px;
+            padding: 10px 25px;
             background: #ff3366;
             color: white;
             border: none;
             border-radius: 50px;
-            font-size: 18px;
-            margin-top: 40px;
+            font-size: 16px;
+            margin-top: 20px;
             cursor: pointer;
-            transition: background 0.3s ease;
         }
-        .back-btn:hover {
-            background: #ff4d88;
-        }
-        /* 音乐控制 */
+        /* 音乐按钮 */
         .music-control {
             position: fixed;
             top: 20px;
             right: 20px;
-            width: 50px;
-            height: 50px;
+            width: 45px;
+            height: 45px;
             border-radius: 50%;
             background: #ff3366;
             color: white;
@@ -135,7 +95,7 @@
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
             z-index: 100;
         }
         /* 爱心飘落 */
@@ -146,16 +106,16 @@
             width: 100%;
             height: 100%;
             pointer-events: none;
-            z-index: 5;
+            z-index: 1;
         }
         .heart-fall {
             position: absolute;
             color: #ff3366;
-            font-size: 20px;
+            font-size: 18px;
             animation: fall linear infinite;
             opacity: 0;
         }
-        /* 烟花特效 */
+        /* 烟花容器 */
         #fireworks {
             position: fixed;
             top: 0;
@@ -165,24 +125,11 @@
             pointer-events: none;
             z-index: 50;
         }
-        /* 动画定义 */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        /* 动画 */
         @keyframes beat {
             0% { transform: scale(1); }
             50% { transform: scale(1.2); }
             100% { transform: scale(1); }
-        }
-        @keyframes moveX {
-            0% { left: -150px; }
-            100% { left: 150px; }
-        }
-        @keyframes bounce {
-            0% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-            100% { transform: translateY(0); }
         }
         @keyframes fall {
             0% { transform: translateY(-20px) rotate(0deg); opacity: 1; }
@@ -193,49 +140,14 @@
             50% { transform: scale(8); opacity: 0.8; }
             100% { transform: scale(15); opacity: 0; }
         }
-        /* 加载动画 */
-        .loader {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: #ff9a9e;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-            transition: opacity 0.5s ease;
-        }
-        .loader-heart {
-            font-size: 60px;
-            color: white;
-            animation: beat 1s infinite;
-        }
-        /* 移动端适配 */
-        @media (max-width: 768px) {
-            .photo-wall {
-                gap: 10px;
-            }
-            .music-control {
-                width: 40px;
-                height: 40px;
-            }
-        }
     </style>
 </head>
 <body>
-    <!-- 加载动画 -->
-    <div class="loader" id="loader">
-        <div class="loader-heart">❤️</div>
-    </div>
-
     <!-- 音乐控制 -->
     <div class="music-control" id="musicBtn">🎵</div>
     <audio id="bgm" loop>
-        <!-- 替换成你的birthday.mp3 Raw链接 -->
         <source src="https://raw.githubusercontent.com/JMbulter/birthday-wish-for-wife/main/birthday.mp3" type="audio/mpeg">
-    
+    </audio>
 
     <!-- 烟花容器 -->
     <div id="fireworks"></div>
@@ -251,19 +163,10 @@
             我会一直宠着你，陪着你，爱你一辈子 ❤️
         </div>
 
-        <!-- 动漫小人 -->
-        <div class="anime-character">
-            <!-- 替换成你的anime-girl.png Raw链接 -->
-            <img src="https://raw.githubusercontent.com/JMbulter/birthday-wish-for-wife/main/anime-girl.png" alt="可爱动漫小人">
-        </div>
-
         <!-- 照片墙 -->
         <div class="photo-wall">
-            <!-- 替换成你的1.jpg Raw链接 -->
             <div class="photo-item"><img src="https://raw.githubusercontent.com/JMbulter/birthday-wish-for-wife/main/1.jpg" alt="合照1"></div>
-            <!-- 替换成你的2.jpg Raw链接 -->
             <div class="photo-item"><img src="https://raw.githubusercontent.com/JMbulter/birthday-wish-for-wife/main/2.jpg" alt="合照2"></div>
-            <!-- 替换成你的3.jpg Raw链接 -->
             <div class="photo-item"><img src="https://raw.githubusercontent.com/JMbulter/birthday-wish-for-wife/main/3.jpg" alt="合照3"></div>
         </div>
 
@@ -282,21 +185,11 @@
     </div>
 
     <script>
-        // 页面加载完成
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                document.getElementById('loader').style.opacity = 0;
-                setTimeout(() => {
-                    document.getElementById('loader').style.display = 'none';
-                }, 500);
-            }, 800);
-        });
-
         // 页面跳转
         function goPage2() {
             document.getElementById("page1").style.display = "none";
             document.getElementById("page2").style.display = "block";
-            fireworks();
+            fireworks(); // 触发烟花
         }
         function goPage1() {
             document.getElementById("page2").style.display = "none";
@@ -307,18 +200,21 @@
         const musicBtn = document.getElementById("musicBtn");
         const bgm = document.getElementById("bgm");
         let isMusicPlay = false;
+
         musicBtn.onclick = function() {
             if (isMusicPlay) {
                 bgm.pause();
                 musicBtn.textContent = "🎵";
             } else {
                 bgm.play().catch(() => {
-                    alert("请点击页面任意位置后再播放音乐哦～");
+                    alert("请先点击页面任意位置，再播放音乐～");
                 });
                 musicBtn.textContent = "🔊";
             }
             isMusicPlay = !isMusicPlay;
         };
+
+        // 点击页面解锁音乐（浏览器限制）
         document.addEventListener("click", () => {
             if (!isMusicPlay) bgm.play().catch(() => {});
         }, { once: true });
@@ -329,15 +225,15 @@
             heart.className = "heart-fall";
             heart.textContent = "❤️";
             heart.style.left = Math.random() * 100 + "%";
-            heart.style.animationDuration = 5 + Math.random() * 10 + "s";
+            heart.style.animationDuration = 5 + Math.random() * 8 + "s";
             document.getElementById("heartsContainer").appendChild(heart);
             setTimeout(() => heart.remove(), 10000);
         }, 300);
 
         // 烟花特效
         function fireworks() {
-            const fireworksBox = document.getElementById("fireworks");
-            for (let i = 0; i < 30; i++) {
+            const box = document.getElementById("fireworks");
+            for (let i = 0; i < 20; i++) {
                 const firework = document.createElement("div");
                 firework.style.cssText = `
                     position: absolute;
@@ -349,7 +245,7 @@
                     top: ${Math.random()*100}%;
                     animation: firework 1.5s ease-out forwards;
                 `;
-                fireworksBox.appendChild(firework);
+                box.appendChild(firework);
                 setTimeout(() => firework.remove(), 1500);
             }
         }
