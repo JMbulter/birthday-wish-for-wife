@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-    <title>老婆生日快乐 ❤️</title>
+    <title>生日快乐 ❤️</title>
     <style>
         * {
             margin: 0;
@@ -20,6 +20,29 @@
             max-width: 100vw;
             transform: translateZ(0);
             -webkit-font-smoothing: antialiased;
+            position: relative;
+        }
+        
+        /* 花瓣飘落样式 */
+        .petal {
+            position: fixed;
+            color: #ffb6c1;
+            font-size: 20px;
+            animation: petalFall linear infinite;
+            z-index: 0;
+            pointer-events: none;
+            text-shadow: 0 0 5px rgba(255, 182, 193, 0.5);
+        }
+        
+        @keyframes petalFall {
+            0% {
+                transform: translateY(-10vh) rotate(0deg);
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
         }
         
         .title {
@@ -29,6 +52,29 @@
             margin: 20px 0;
             text-shadow: 2px 2px 10px rgba(255, 0, 100, 0.5);
             word-break: break-word;
+            animation: titleGlow 2s infinite alternate;
+        }
+        
+        @keyframes titleGlow {
+            from { text-shadow: 2px 2px 10px rgba(255, 0, 100, 0.5); }
+            to { text-shadow: 4px 4px 20px rgba(255, 0, 150, 0.8); }
+        }
+        
+        /* 在一起计数器 */
+        .love-counter {
+            background: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(5px);
+            border-radius: 30px;
+            padding: 10px 20px;
+            display: inline-block;
+            margin: 10px auto;
+            font-size: 18px;
+            color: white;
+            border: 2px solid white;
+            box-shadow: 0 4px 15px rgba(255, 51, 102, 0.3);
+            position: relative;
+            z-index: 10;
+            width: fit-content;
         }
         
         .photo-wall {
@@ -38,6 +84,8 @@
             gap: 15px;
             margin: 25px 0;
             padding: 0 10px;
+            position: relative;
+            z-index: 10;
         }
         
         .photo-item {
@@ -49,11 +97,30 @@
             overflow: hidden;
             border: 3px solid white;
             box-shadow: 0 5px 15px rgba(255, 51, 102, 0.3);
-            transition: transform 0.3s ease;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .photo-item::before {
+            content: "💕";
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            font-size: 20px;
+            transform: rotate(15deg);
+            opacity: 0;
+            transition: all 0.3s;
         }
         
         .photo-item:hover {
-            transform: scale(1.05);
+            transform: scale(1.05) rotate(2deg);
+            box-shadow: 0 8px 25px rgba(255, 51, 102, 0.5);
+        }
+        
+        .photo-item:hover::before {
+            opacity: 1;
+            top: -5px;
+            right: -5px;
         }
         
         .photo-item img {
@@ -76,6 +143,42 @@
             margin: 20px 0;
             box-shadow: 0 4px 15px rgba(255, 51, 102, 0.2);
             border: 1px solid rgba(255, 255, 255, 0.3);
+            animation: wishFloat 3s infinite ease-in-out;
+        }
+        
+        @keyframes wishFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-3px); }
+        }
+        
+        /* 打字机效果 */
+        .typing-text {
+            font-size: 20px;
+            color: #ff3366;
+            background: white;
+            padding: 12px 25px;
+            border-radius: 50px;
+            display: inline-block;
+            margin: 15px 0;
+            box-shadow: 0 5px 20px rgba(255, 255, 255, 0.5);
+            border: 2px solid #ff99bb;
+            position: relative;
+            z-index: 10;
+            white-space: nowrap;
+            overflow: hidden;
+            border-right: 3px solid #ff3366;
+            animation: typing 3.5s steps(30, end), blink-caret 0.75s step-end infinite;
+            max-width: 90%;
+        }
+        
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+        
+        @keyframes blink-caret {
+            from, to { border-color: transparent; }
+            50% { border-color: #ff3366; }
         }
         
         .heart-btn {
@@ -88,16 +191,231 @@
             transform: translateZ(0);
             transition: transform 0.2s;
             -webkit-tap-highlight-color: transparent;
+            position: relative;
+            z-index: 10;
+            filter: drop-shadow(0 0 15px rgba(255, 51, 102, 0.5));
         }
         
         .heart-btn:active {
             transform: scale(0.95);
         }
         
+        .heart-btn::after {
+            content: "点击有惊喜";
+            position: absolute;
+            bottom: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 14px;
+            color: white;
+            background: rgba(255, 51, 102, 0.8);
+            padding: 5px 15px;
+            border-radius: 20px;
+            white-space: nowrap;
+            animation: bounce 1s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(-5px); }
+        }
+        
+        /* 3D翻转相册 */
+        .flip-card {
+            width: 200px;
+            height: 200px;
+            margin: 20px auto;
+            position: relative;
+            z-index: 20;
+        }
+        
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.8s;
+            transform-style: preserve-3d;
+            cursor: pointer;
+        }
+        
+        .flip-card:hover .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+        
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 20px;
+            border: 4px solid white;
+            box-shadow: 0 10px 30px rgba(255, 51, 102, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+        }
+        
+        .flip-card-front {
+            background: linear-gradient(145deg, #ff99bb, #ff6699);
+        }
+        
+        .flip-card-back {
+            background: linear-gradient(145deg, #ff6699, #ff3366);
+            transform: rotateY(180deg);
+            font-size: 18px;
+            color: white;
+            padding: 15px;
+        }
+        
+        /* 爱情存钱罐 */
+        .piggy-bank {
+            background: rgba(255, 215, 0, 0.2);
+            backdrop-filter: blur(5px);
+            border-radius: 30px;
+            padding: 15px;
+            margin: 20px 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            border: 2px solid gold;
+            color: white;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .coin {
+            width: 45px;
+            height: 45px;
+            background: gold;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #b8860b;
+            animation: spin 2s infinite linear;
+            cursor: pointer;
+            font-size: 20px;
+            transition: all 0.3s;
+        }
+        
+        .coin:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 20px gold;
+        }
+        
+        @keyframes spin {
+            from { transform: rotateY(0deg); }
+            to { transform: rotateY(360deg); }
+        }
+        
+        /* 浪漫天气预报 */
+        .weather-romance {
+            background: rgba(135, 206, 235, 0.3);
+            backdrop-filter: blur(5px);
+            border-radius: 20px;
+            padding: 15px;
+            margin: 20px 0;
+            color: white;
+            font-size: 16px;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+        }
+        
+        /* 浪漫时间线 */
+        .timeline {
+            position: relative;
+            margin: 30px 0;
+            padding: 15px;
+        }
+        
+        .timeline-item {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(5px);
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 15px;
+            border-left: 5px solid #ff3366;
+            color: white;
+            text-align: left;
+            animation: slideIn 0.5s ease;
+        }
+        
+        @keyframes slideIn {
+            from {
+                transform: translateX(-30px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        /* 浪漫留言板 */
+        .message-board {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 20px;
+            margin: 30px 0;
+            border: 2px solid white;
+        }
+        
+        .message-input {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 25px;
+            margin: 10px 0;
+            font-size: 16px;
+            outline: none;
+        }
+        
+        .send-btn {
+            background: #ff3366;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 25px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid white;
+        }
+        
+        .send-btn:hover {
+            transform: scale(1.05);
+            background: #ff1a4f;
+        }
+        
+        /* 爱情许愿池 */
+        .wish-btn {
+            background: gold;
+            color: #ff3366;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-size: 18px;
+            cursor: pointer;
+            margin: 20px 0;
+            border: 2px solid white;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        
+        .wish-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 25px gold;
+        }
+        
         .page1, .page2 {
             transition: opacity 0.3s ease;
             max-width: 500px;
             margin: 0 auto;
+            position: relative;
+            z-index: 10;
         }
         
         .page2 {
@@ -118,6 +436,7 @@
             transition: all 0.2s;
             font-weight: bold;
             -webkit-tap-highlight-color: transparent;
+            border: 2px solid white;
         }
         
         .back-btn:active {
@@ -144,6 +463,12 @@
             border: 2px solid white;
             transition: all 0.2s;
             -webkit-tap-highlight-color: transparent;
+            animation: musicFloat 2s infinite alternate;
+        }
+        
+        @keyframes musicFloat {
+            from { transform: translateY(0); }
+            to { transform: translateY(-5px); }
         }
         
         .music-control:active {
@@ -207,16 +532,22 @@
             }
         }
         
-        /* 加载提示 */
         .loading-hint {
             position: fixed;
             bottom: 20px;
             left: 0;
             width: 100%;
             text-align: center;
-            color: rgba(255, 255, 255, 0.6);
-            font-size: 12px;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 14px;
             z-index: 100;
+            text-shadow: 0 2px 5px rgba(255, 51, 102, 0.5);
+            animation: hintGlow 2s infinite;
+        }
+        
+        @keyframes hintGlow {
+            0%, 100% { opacity: 0.7; }
+            50% { opacity: 1; }
         }
     </style>
 </head>
@@ -224,7 +555,7 @@
     <!-- 音乐控制按钮 -->
     <div class="music-control" id="musicBtn">🎵</div>
     
-    <!-- 音频标签（修复闭合问题） -->
+    <!-- 音频标签 -->
     <audio id="bgm" loop preload="auto">
         <source src="birthday.mp3" type="audio/mpeg">
         您的浏览器不支持音频播放
@@ -236,7 +567,33 @@
 
     <!-- 页面1 -->
     <div class="page1" id="page1">
+        <!-- 在一起计数器（新增） -->
+        <div style="text-align: center;">
+            <div class="love-counter" id="loveCounter">
+                💕 在一起 520 天 💕
+            </div>
+        </div>
+        
         <h1 class="title">亲爱的老婆，生日快乐！🎂</h1>
+        
+        <!-- 3D翻转相册（新增） -->
+        <div class="flip-card">
+            <div class="flip-card-inner">
+                <div class="flip-card-front">
+                    💝
+                </div>
+                <div class="flip-card-back">
+                    遇见你是我<br>最大的幸运 ❤️
+                </div>
+            </div>
+        </div>
+        
+        <!-- 打字机效果（新增） -->
+        <div style="text-align: center;">
+            <div class="typing-text" id="typingText">
+                甄鑫鑫！
+            </div>
+        </div>
         
         <div class="wish">
             🌸 愿你永远被爱包围，永远开心，永远漂亮～<br>
@@ -249,6 +606,22 @@
             <div class="photo-item"><img src="888.jpg" alt="合照3" loading="lazy"></div>
         </div>
         
+        <!-- 爱情存钱罐（新增） -->
+        <div class="piggy-bank" id="piggyBank">
+            <span>💰 爱情存钱罐</span>
+            <div class="coin" onclick="addLove()">❤️</div>
+            <div class="coin" onclick="addLove()">💕</div>
+            <div class="coin" onclick="addLove()">💖</div>
+            <span id="loveAmount">0</span> 颗爱心
+        </div>
+        
+        <!-- 浪漫天气预报（新增） -->
+        <div class="weather-romance" id="weatherRomance">
+            🌡️ 今日爱情温度：100°C <br>
+            ☁️ 天气：持续甜蜜 <br>
+            💑 适合：永远在一起
+        </div>
+        
         <div class="heart-btn" onclick="goPage2()">❤️</div>
     </div>
 
@@ -256,17 +629,51 @@
     <div class="page2" id="page2">
         <h1 class="title">💖 给你的专属惊喜 💖</h1>
         
+        <!-- 浪漫时间线（新增） -->
+        <div class="timeline" id="timeline">
+            <div class="timeline-item">
+                <strong>第一次相遇</strong><br>
+                那一天，我的世界亮了 ✨
+            </div>
+            <div class="timeline-item">
+                <strong>第一次牵手</strong><br>
+                手心出汗，心跳加速 💓
+            </div>
+            <div class="timeline-item">
+                <strong>第一次说我爱你</strong><br>
+                你笑了，比花还美 🌹
+            </div>
+            <div class="timeline-item">
+                <strong>今天</strong><br>
+                我要宠你一辈子！ 💍
+            </div>
+        </div>
+        
         <div class="wish">
             🎂 生日快乐我的女孩！<br>
             ✨ 岁岁常欢愉，年年皆胜意<br>
             🌹 我的世界因为有你才完整～<br>
-            💝 永远爱你的老公
+            💝 蛋糕我先吃
+        </div>
+        
+        <!-- 浪漫留言板（新增） -->
+        <div class="message-board">
+            <h3 style="color: white; margin-bottom: 10px;">💌 给老婆的悄悄话</h3>
+            <input type="text" class="message-input" id="messageInput" placeholder="写下想对老婆说的话...">
+            <button class="send-btn" onclick="sendMessage()">发送爱心 💖</button>
+            <div id="messageDisplay" style="color: white; margin-top: 15px;"></div>
+        </div>
+        
+        <!-- 爱情许愿池（新增） -->
+        <div style="margin: 20px 0;">
+            <button class="wish-btn" onclick="makeWish()">⭐ 许个愿吧 ⭐</button>
+            <div id="wishResult" style="color: white; margin-top: 10px;"></div>
         </div>
         
         <button class="back-btn" onclick="goPage1()">返回祝福页</button>
     </div>
     
-    <div class="loading-hint" id="loadingHint">点击❤️有惊喜哦</div>
+    <div class="loading-hint" id="loadingHint">✨ 点击大爱心，有超级惊喜 ✨</div>
 
     <script>
         (function() {
@@ -283,7 +690,8 @@
             let isMusicPlay = false;
             let heartCount = 0;
             let isFiring = false;
-            const MAX_HEART = 20; // 减少数量提升性能
+            let loveCount = 0;
+            const MAX_HEART = 20;
             
             // 初始化显示
             function initDisplay() {
@@ -296,23 +704,102 @@
                 page1.style.display = "none";
                 page2.style.display = "block";
                 loadingHint.style.opacity = "0.3";
+                loadingHint.textContent = "🎉 惊喜加载中... 🎉";
                 fireworks();
+                
+                setTimeout(() => {
+                    loadingHint.textContent = "✨ 生日快乐 ✨";
+                }, 2000);
             };
             
             window.goPage1 = function() {
                 page2.style.display = "none";
                 page1.style.display = "block";
                 loadingHint.style.opacity = "1";
+                loadingHint.textContent = "✨ 点击大爱心，有超级惊喜 ✨";
             };
+            
+            // 新增：爱心存钱罐功能
+            window.addLove = function() {
+                loveCount++;
+                document.getElementById('loveAmount').textContent = loveCount;
+                
+                // 创建小爱心特效
+                for (let i = 0; i < 3; i++) {
+                    setTimeout(() => {
+                        createSingleHeart();
+                    }, i * 100);
+                }
+                
+                if (loveCount === 10) {
+                    alert('🎉 恭喜！收集10颗爱心，解锁永久宠爱！');
+                    fireworks();
+                }
+            };
+            
+            // 新增：发送悄悄话
+            window.sendMessage = function() {
+                const msg = document.getElementById('messageInput').value;
+                if (msg.trim()) {
+                    document.getElementById('messageDisplay').innerHTML = 
+                        `💌 老婆说："${msg}"<br>💕 收到啦，永远爱你！`;
+                    document.getElementById('messageInput').value = '';
+                    
+                    // 触发爱心雨
+                    for (let i = 0; i < 5; i++) {
+                        setTimeout(createSingleHeart, i * 200);
+                    }
+                }
+            };
+            
+            // 新增：许愿功能
+            window.makeWish = function() {
+                const wishes = [
+                    "愿老婆永远18岁！",
+                    "愿我们永远这么甜蜜！",
+                    "愿今年带老婆去旅行！",
+                    "愿老婆每天都有好心情！",
+                    "愿我们的爱情越来越深！",
+                    "愿老婆永远健康美丽！",
+                    "愿我们永远不吵架！"
+                ];
+                const randomWish = wishes[Math.floor(Math.random() * wishes.length)];
+                document.getElementById('wishResult').innerHTML = 
+                    `✨ 许愿成功：${randomWish}<br>⭐ 一定会实现！`;
+                
+                // 烟花庆祝
+                fireworks();
+            };
+            
+            // 创建单个爱心
+            function createSingleHeart() {
+                if (heartCount >= MAX_HEART) return;
+                
+                const heart = document.createElement("div");
+                heart.className = "heart-fall";
+                heart.textContent = "❤️";
+                heart.style.left = Math.random() * 100 + "%";
+                heart.style.fontSize = (14 + Math.floor(Math.random() * 20)) + "px";
+                heart.style.animationDuration = (3 + Math.random() * 4) + "s";
+                
+                heartsContainer.appendChild(heart);
+                heartCount++;
+                
+                setTimeout(() => {
+                    if (heart.parentNode) {
+                        heart.remove();
+                        heartCount--;
+                    }
+                }, 7000);
+            }
             
             // 音乐播放控制
             function initMusic() {
                 let userInteracted = false;
                 
-                // 用户首次点击页面时预加载音频
                 document.body.addEventListener('click', function firstClick() {
                     if (!userInteracted) {
-                        bgm.load(); // 预加载
+                        bgm.load();
                         userInteracted = true;
                         console.log('音频已预加载');
                     }
@@ -326,23 +813,21 @@
                         musicBtn.textContent = "🎵";
                         musicBtn.style.background = "#ff3366";
                     } else {
-                        // 尝试播放
                         bgm.play()
                             .then(() => {
                                 musicBtn.textContent = "🔊";
                                 musicBtn.style.background = "#ff1a4f";
                                 loadingHint.textContent = "🎵 音乐播放中...";
                                 setTimeout(() => {
-                                    loadingHint.textContent = "点击❤️有惊喜哦";
+                                    loadingHint.textContent = "✨ 点击大爱心，有超级惊喜 ✨";
                                 }, 2000);
                             })
                             .catch(e => {
                                 console.log('播放失败:', e);
                                 loadingHint.textContent = "⚠️ 请先点击页面任意位置";
                                 musicBtn.style.background = "#ff3366";
-                                // 提示用户
                                 setTimeout(() => {
-                                    loadingHint.textContent = "点击❤️有惊喜哦";
+                                    loadingHint.textContent = "✨ 点击大爱心，有超级惊喜 ✨";
                                 }, 2000);
                             });
                     }
@@ -350,54 +835,27 @@
                 };
             }
             
-            // 爱心飘落特效（优化版）
+            // 爱心飘落特效
             function initHearts() {
                 setInterval(() => {
-                    if (heartCount >= MAX_HEART) return;
-                    
-                    const heart = document.createElement("div");
-                    heart.className = "heart-fall";
-                    heart.textContent = "❤️";
-                    heart.style.left = Math.random() * 100 + "%";
-                    
-                    // 随机大小
-                    const size = 14 + Math.floor(Math.random() * 20);
-                    heart.style.fontSize = size + "px";
-                    
-                    // 随机动画时长
-                    const duration = 4 + Math.random() * 6;
-                    heart.style.animationDuration = duration + "s";
-                    
-                    // 随机延迟
-                    heart.style.animationDelay = Math.random() * 2 + "s";
-                    
-                    heartsContainer.appendChild(heart);
-                    heartCount++;
-                    
-                    // 定时移除
-                    setTimeout(() => {
-                        if (heart.parentNode) {
-                            heart.remove();
-                            heartCount--;
-                        }
-                    }, duration * 1000 + 2000);
-                    
-                }, 800); // 降低频率
+                    if (heartCount < MAX_HEART) {
+                        createSingleHeart();
+                    }
+                }, 800);
             }
             
-            // 烟花特效（优化版）
+            // 烟花特效
             function fireworks() {
                 if (isFiring) return;
                 isFiring = true;
                 
                 const colors = ["#ff3366", "#ffcc00", "#ff6699", "#66ccff", "#ff9900", "#ff00cc", "#00ffcc"];
                 
-                // 减少数量，但增加层次感
                 for (let i = 0; i < 15; i++) {
                     setTimeout(() => {
                         for (let j = 0; j < 3; j++) {
                             const f = document.createElement("div");
-                            const left = 20 + Math.random() * 60; // 集中在中间区域
+                            const left = 20 + Math.random() * 60;
                             const top = 20 + Math.random() * 60;
                             
                             f.style.cssText = `
@@ -437,11 +895,78 @@
                 });
             }
             
+            // 更新在一起天数
+            function updateLoveCounter() {
+                const counter = document.getElementById('loveCounter');
+                if (counter) {
+                    // 这里可以修改成你们实际在一起的天数
+                    const days = 111; // 修改这个数字
+                    counter.innerHTML = `💕 在一起 ${days} 天 💕`;
+                }
+            }
+            
+            // 打字机效果文字轮换
+            const texts = [
+                "甄鑫鑫！",
+                "生日快乐！🎂",
+                "你最美！💕",
+                "永远宠你！💑",
+                "我的女神！👸",
+                "永远在一起！💍"
+            ];
+            let textIndex = 0;
+            
+            setInterval(() => {
+                const typingEl = document.getElementById('typingText');
+                if (typingEl && page1.style.display !== 'none') {
+                    textIndex = (textIndex + 1) % texts.length;
+                    typingEl.textContent = texts[textIndex];
+                    
+                    // 重新触发动画
+                    typingEl.style.animation = 'none';
+                    typingEl.offsetHeight;
+                    typingEl.style.animation = 'typing 3.5s steps(30, end), blink-caret 0.75s step-end infinite';
+                }
+            }, 4000);
+            
+            // 浪漫天气更新
+            function updateWeather() {
+                const weatherEl = document.getElementById('weatherRomance');
+                if (weatherEl) {
+                    const temps = ['100°C', '无限°C', '永远热恋°C', '甜蜜爆表°C', '520°C'];
+                    const weathers = ['持续甜蜜', '爱心多云', '浪漫小雨', '幸福晴天', '粉色云朵'];
+                    const randomTemp = temps[Math.floor(Math.random() * temps.length)];
+                    const randomWeather = weathers[Math.floor(Math.random() * weathers.length)];
+                    
+                    weatherEl.innerHTML = `
+                        🌡️ 今日爱情温度：${randomTemp} <br>
+                        ☁️ 天气：${randomWeather} <br>
+                        💑 适合：永远在一起
+                    `;
+                }
+            }
+            setInterval(updateWeather, 10000);
+            
+            // 花瓣飘落
+            function createPetal() {
+                const petal = document.createElement('div');
+                petal.className = 'petal';
+                petal.textContent = ['🌸', '🌺', '🌹', '🌷', '💮', '🌸'][Math.floor(Math.random() * 5)];
+                petal.style.left = Math.random() * 100 + '%';
+                petal.style.animationDuration = (5 + Math.random() * 5) + 's';
+                petal.style.fontSize = (15 + Math.random() * 15) + 'px';
+                document.body.appendChild(petal);
+                
+                setTimeout(() => petal.remove(), 10000);
+            }
+            setInterval(createPetal, 800);
+            
             // 启动所有功能
             initDisplay();
             initMusic();
             initHearts();
             initImages();
+            updateLoveCounter();
             
             // 页面可见性变化时处理音乐
             document.addEventListener('visibilitychange', function() {
@@ -452,7 +977,6 @@
                 }
             });
             
-            // 添加触摸优化
             document.addEventListener('touchstart', function() {}, {passive: true});
             
             console.log('页面初始化完成，生日快乐！❤️');
